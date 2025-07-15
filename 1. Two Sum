@@ -5,7 +5,9 @@ Assumptions:
 Each input has exactly one valid solution.
 The same element cannot be used twice.
 👉 Approach 1 : Two pointers
-One brute force approach is to consider every pair of elements and check if their sum equals the target. This can be done using nested loops, where the outer loop iterates from the first element to the second-to-last element, and the inner loop iterates from the next element to the last element. However, this approach has a time complexity of O(n^2)
+One brute force approach is to consider every pair of elements and check if their sum equals the target. This can be done using nested loops, 
+where the outer loop iterates from the first element to the second-to-last element, and the inner loop iterates from the next element to the last element. 
+However, this approach has a time complexity of O(n^2)
 
 ⏳Complexity Analysis
 Time complexity:O(n)
