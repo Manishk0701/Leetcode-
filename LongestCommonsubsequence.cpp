@@ -5,21 +5,54 @@
 // The provided Solution class
 class Solution {
 public:
-    std::string longestCommonPrefix(std::vector<std::string>& strs) {
-        if (strs.empty())
-            return "";
+    string longestCommonPrefix(vector<string>& strs) {
+        // 1. Handle empty input:
+        if (strs.empty()) 
+            return ""; // If the input array of strings is empty, there's no common prefix.
 
-        for (int i = 0; i < strs[0].length(); ++i) {
+        // 2. Iterate through the characters of the first string:
+        // We assume the first string (strs[0]) as a reference to compare against.
+        // The common prefix cannot be longer than the shortest string in the array.
+        // By iterating through the first string, we effectively check characters
+        // position by position for all strings.
+        for (int i = 0; i < strs[0].length(); ++i) { 
+            // 'i' represents the current character index we are checking for commonality.
+
+            // 3. Compare the current character with all other strings:
+            // For each character at index 'i' in the first string, we compare it
+            // with the character at the same index 'i' in all other strings (strs[1] to strs[size-1]).
             for (int j = 1; j < strs.size(); ++j) {
+                // 'j' represents the index of the current string being compared with strs[0].
+
+                // 4. Check for two conditions that indicate the end of the common prefix:
+                // a) If the current string (strs[j]) is shorter than or equal to the current index 'i':
+                //    This means strs[j] doesn't have a character at index 'i' or beyond.
+                //    Example: strs = ["flower", "flow", "f"] and i = 1 (checking 'l').
+                //    When j points to "f", strs[j].length() is 1, and i is 1.
+                //    So, i == strs[j].length() becomes true. The common prefix ends at the previous character.
+                // b) If the character at index 'i' in the current string (strs[j][i])
+                //    is not equal to the character at index 'i' in the first string (strs[0][i]):
+                //    This means we've found a mismatch, and the common prefix ends before this character.
+                //    Example: strs = ["flower", "flight"] and i = 2 (checking 'o' vs 'i').
+                //    strs[0][2] is 'o', strs[1][2] is 'i'. They don't match.
+                //    The common prefix is "fl" (characters up to index i-1).
                 if (i == strs[j].length() || strs[j][i] != strs[0][i]) {
-                    return strs[0].substr(0, i);
+                    // If either of these conditions is true, we've found the end of the longest common prefix.
+                    // We extract the substring of strs[0] from index 0 up to (but not including) index 'i'.
+                    return strs[0].substr(0, i); 
                 }
             }
         }
+
+        // 5. If the loop completes:
+        // This means that all characters of the first string (strs[0]) were common prefixes
+        // for all other strings. In this case, the first string itself is the longest common prefix.
+        // This happens if the first string is the shortest and is a prefix of all others.
+        // Example: strs = ["apple", "app", "apricot"] -> This solution would return "ap".
+        // Example: strs = ["apple", "applepie", "applesauce"] -> This would return "apple".
         return strs[0];
     }
 };
-
 // Main function to test the Solution
 int main() {
     Solution sol;
